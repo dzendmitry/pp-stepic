@@ -5,6 +5,7 @@ all:
 	make alloc
 	make memtester
 	make echoserv
+	make chatserv
 
 pder:
 	g++ -std=c++11 -o poly_der poly_der.cpp
@@ -21,9 +22,13 @@ memtester:
 echoserv:
 	g++ -std=c++11 -o echoserver echoserver.cpp
 
+chatserv:
+	g++ -std=c++11 -o chatserver chatserver.cpp	
+
 clean:
 	@rm -f poly_der
 	@rm -f smart_pointer
 	@rm -f simple_allocator
 	@rm -f memory_tester
 	@rm -f echoserver
+	@rm -f chatserver
