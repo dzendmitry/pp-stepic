@@ -1,13 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <arpa/inet.h>
-#include <errno.h>
 #include <string.h>
 
-#define handle_error(msg) \
-	do { perror(msg); exit(EXIT_FAILURE); } while (0)
+#include "general.h"
 
 #define PORT 12345
 #define LISTEN_BACKLOG 128
@@ -16,14 +11,10 @@
 int main(int argc, char *argv[]) {
 	int sd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sd == -1) {
-		handle_error("");
+		handle_error("socket(sd)");
 	}
 
-	int optval = 1;
-	if (-1 == setsockopt(sd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &optval, sizeof(optval))) {
-		handle_error("");
-	}
-
+	set_reusable(sd);
 
 	struct sockaddr_in sa;
 	sa.sin_family = AF_INET;
@@ -31,11 +22,11 @@ int main(int argc, char *argv[]) {
 	sa.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	if (-1 == bind(sd, (struct sockaddr *) &sa, sizeof(struct sockaddr_in))) {
-		handle_error("");
+		handle_error("bind(sd)");
 	}
 
 	if (-1 == listen(sd, LISTEN_BACKLOG)) {
-		handle_error("");
+		handle_error("listen(sd)");
 	}
 
 	char buffer[BUFFER_SIZE];
@@ -43,7 +34,7 @@ int main(int argc, char *argv[]) {
 	socklen_t addrlen;
 	while (int _sd = accept(sd, (struct sockaddr *) &sa_in, &addrlen)) {
 		if (_sd == -1) {
-			handle_error("");
+			handle_error("accept(sd)");
 		}
 
 		printf("client %s:%d start\n", inet_ntoa(sa_in.sin_addr), ntohs(sa_in.sin_port));
