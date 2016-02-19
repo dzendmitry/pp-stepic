@@ -87,6 +87,7 @@ int main(int argc, char *argv[]) {
 					DISCONNECT
 					continue;
 				}
+				buffer[rbytes] = '\0';
 				std::string msg = sockaddr_to_ip_port(fd_map[events[i].data.fd]) + " : " + std::string(buffer);
 				for ( auto it = fd_map.begin(); it != fd_map.end(); ++it ) {
 					ssize_t wbytes = send(it->first, msg.c_str(), msg.length(), MSG_NOSIGNAL);
