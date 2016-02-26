@@ -6,6 +6,7 @@ all:
 	make memtester
 	make echoserv
 	make chatserv
+	make signals
 
 pder:
 	g++ -std=c++11 -o poly_der poly_der.cpp
@@ -23,7 +24,10 @@ echoserv:
 	g++ -std=c++11 -o echoserver echoserver.cpp
 
 chatserv:
-	g++ -std=c++11 -o chatserver chatserver.cpp	
+	g++ -std=c++11 -o chatserver chatserver.cpp
+
+signals:
+	g++ -std=c++11 -o signals signals.cpp
 
 clean:
 	@rm -f poly_der
@@ -32,3 +36,4 @@ clean:
 	@rm -f memory_tester
 	@rm -f echoserver
 	@rm -f chatserver
+	@rm -f signals
