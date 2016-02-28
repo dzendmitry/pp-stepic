@@ -15,7 +15,7 @@ smp:
 	g++ -std=c++11 -o smart_pointer smart_pointer.cpp
 
 alloc:
-	g++ -std=c++11 -o simple_allocator simple_allocator.cpp
+	g++ -std=c++11 -Wformat=0 -o simple_allocator simple_allocator.cpp
 
 memtester:
 	g++ -std=c++11 -o memory_tester memory_tester.cpp

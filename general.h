@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <arpa/inet.h>
+#include <string>
 
 #define handle_error(msg) \
 	do { perror(msg); exit(EXIT_FAILURE); } while (0)
